@@ -107,7 +107,7 @@ def show_analysis(result):
 result = analyze_app("Flashlight", APP_PROFILES["Flashlight"])
 show_analysis(result)
 
-!pip -q install cryptography
+
 
 import base64
 import json
@@ -406,7 +406,7 @@ display(
     ])
 )
 
-!pip -q install gradio
+
 
 import base64
 import copy

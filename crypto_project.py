@@ -4,6 +4,41 @@ import streamlit as st
 from cryptography.exceptions import InvalidSignature, InvalidTag
 from cryptography.hazmat.primitives.asymmetric import padding, rsa
 from cryptography.hazmat.primitives import hashes
+PERMISSION_RISK = {
+    "Camera": 15,
+    "Microphone": 15,
+    "Location": 20,
+    "Contacts": 20,
+    "Photos/Storage": 12,
+    "Notifications": 5,
+}
+
+APP_PROFILES = {
+    "Flashlight": {
+        "purpose": "Turn the phone light on and off",
+        "requested": {"Camera", "Location", "Contacts"},
+        "needed": set(),
+    },
+    "Campus Map": {
+        "purpose": "Show the user's position and provide routes",
+        "requested": {"Location", "Notifications", "Contacts"},
+        "needed": {"Location"},
+    },
+    "Voice Notes": {
+        "purpose": "Record and replay voice notes",
+        "requested": {"Microphone", "Photos/Storage", "Location"},
+        "needed": {"Microphone", "Photos/Storage"},
+    },
+    "Video Caller": {
+        "purpose": "Make video calls to selected contacts",
+        "requested": {
+            "Camera", "Microphone", "Contacts", "Notifications", "Location"
+        },
+        "needed": {
+            "Camera", "Microphone", "Contacts", "Notifications"
+        },
+    },
+}
 
 st.set_page_config(
     page_title="Mobile Permission Risk Analyzer",
